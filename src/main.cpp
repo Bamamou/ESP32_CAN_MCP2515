@@ -1,174 +1,154 @@
-/*
-This small code allows is my small OTA for ESP32 
-In the login page you will need your password and username: the default one is evoke as username and nicolas as password 
- */
+/******************************************************************************
+ * misc.cpp
+ * Main file
+ *****************************************************************************/
 
- #include<Arduino.h>
- #include<main.h>
+#include "main.h"
 
-WebServer server(80);
- 
-/*
- * Login page
- */
- 
-const char* loginIndex =
- "<form name='loginForm'>"
-    "<table width='20%' bgcolor='A09F9F' align='center'>"
-        "<tr>"
-            "<td colspan=2>"
-                "<center><font size=4><b>ESP32 Login Page</b></font></center>"
-                "<br>"
-            "</td>"
-            "<br>"
-            "<br>"
-        "</tr>"
-        "<tr>"
-             "<td>Username:</td>"
-             "<td><input type='text' size=25 name='userid'><br></td>"
-        "</tr>"
-        "<br>"
-        "<br>"
-        "<tr>"
-            "<td>Password:</td>"
-            "<td><input type='Password' size=25 name='pwd'><br></td>"
-            "<br>"
-            "<br>"
-        "</tr>"
-        "<tr>"
-            "<td><input type='submit' onclick='check(this.form)' value='Login'></td>"
-        "</tr>"
-    "</table>"
-"</form>"
-"<script>"
-    "function check(form)"
-    "{"
-    "if(form.userid.value=='evoke' && form.pwd.value=='nicolas')" //This is where the login info is
-    "{"
-    "window.open('/serverIndex')"
-    "}"
-    "else"
-    "{"
-    " alert('Error Password or Username')/*displays error message*/"
-    "}"
-    "}"
-"</script>";
- 
-/*
- * Server Index Page
- */
- 
-const char* serverIndex =
-"<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>"
-"<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>"
-   "<input type='file' name='update'>"
-        "<input type='submit' value='Update'>"
-    "</form>"
- "<div id='prg'>progress: 0%</div>"
- "<script>"
-  "$('form').submit(function(e){"
-  "e.preventDefault();"
-  "var form = $('#upload_form')[0];"
-  "var data = new FormData(form);"
-  " $.ajax({"
-  "url: '/update',"
-  "type: 'POST',"
-  "data: data,"
-  "contentType: false,"
-  "processData:false,"
-  "xhr: function() {"
-  "var xhr = new window.XMLHttpRequest();"
-  "xhr.upload.addEventListener('progress', function(evt) {"
-  "if (evt.lengthComputable) {"
-  "var per = evt.loaded / evt.total;"
-  "$('#prg').html('progress: ' + Math.round(per*100) + '%');"
-  "}"
-  "}, false);"
-  "return xhr;"
-  "},"
-  "success:function(d, s) {"
-  "console.log('success!')"
- "},"
- "error: function (a, b, c) {"
- "}"
- "});"
- "});"
- "</script>";
- 
-/*
- * setup function
- */
-void setup(void) {
+void setup()
+{
+  /* #region INIT_PINS */
+  pinMode(pinReset, OUTPUT);
+  pinMode(pinWP_FRAM, OUTPUT);
+  pinMode(pinHSPI_CS_Acc, OUTPUT);
+  pinMode(pinHSPI_CS_Flash, OUTPUT);
+  pinMode(pinVSPI_CS_Can, OUTPUT);
+
+  // // Keep FRAM protected against Writing
+  // digitalWrite(pinWP_FRAM, HIGH);
+
+  // // Make sure that the pin for the 12V is used just for analog conversion
+  // adcAttachPin(pin12VMonitor);
+
+  // Init serial ports (The serial ports for display and BMS are started in their task files)
+  // As seen in https://github.com/G6EJD/ESP32-Using-Hardware-Serial-Ports/blob/master/ESP32_Using_Serial2.ino
   Serial.begin(115200);
- 
-  // Connect to WiFi network
-  WiFi.begin(ssid, password);
-  Serial.println("");
- 
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Connected to ");
-  Serial.println(ssid);
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
- 
-  // /*use mdns for host name resolution*/
-  // if (!MDNS.begin(host)) { //http://esp32.local
-  //   Serial.println("Error setting up MDNS responder!");
-  //   while (1) {
-  //     delay(1000);
-  //   }
+
+  // // Init I2C Bus
+  // I2C0.begin(pinSDA, pinSCL, 400000);
+
+  // // Init peripherals
+  // disablePeripheralComponents(); // Put 0 in the reset pin that goes for I2C Expander and CAN chip
+  // delay(20);
+  // activatePeripheralComponents(); // Put 1 in the reset pin that goes for I2C Expander and CAN chip
+  // delay(20);
+  // configExpanders(); // Initialize the I2C Expanders
+  // /* #endregion */
+
+  // /* #region INIT_VARIABLES */
+  // vehicleInfo.tripKm = 0;
+  // vehicleInfo.isInReverseMode = false;
+
+  // // Create paremeter objects and read from FRAM
+  // configParametersObjects();
+  // readAllParameters();
+  // /* #endregion */
+
+  // // Set the pins that change according to parameters
+  // // The Embedded CAN is not being used in V2.3.3.2, so it is just if is different
+  // if (strcmp(vehicleParam.ECUHardwareVersion, "2.3.3.2") != 0)
+  // {
+  //   pinTXCAN2 = GPIO_NUM_13; // CAN2_TXD - TX from embedded CAN Controller
+  //   pinRXCAN2 = GPIO_NUM_32; // CAN2_RXD - RX from embedded CAN Controller
   // }
-  // Make it possible to access webserver at http://myEsp32Ota.local
-  if (!MDNS.begin(host)) {
-    Serial.println("Error setting up mDNS responder!");
-  } else {
-    Serial.printf("Access at http://%s.local\n", host); // I added the update to directly update 
-                                                                  // but it can modified to first have access to the below 
-  }
-  Serial.println("mDNS responder started");
-  /*return index page which is stored in serverIndex */
-  server.on("/", HTTP_GET, []() {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/html", loginIndex);
-  });
-  server.on("/serverIndex", HTTP_GET, []() {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/html", serverIndex);
-  });
-  /*handling uploading firmware file */
-  server.on("/update", HTTP_POST, []() {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
-    ESP.restart();
-  }, []() {
-    HTTPUpload& upload = server.upload();
-    if (upload.status == UPLOAD_FILE_START) {
-      Serial.printf("Update: %s\n", upload.filename.c_str());
-      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
-        Update.printError(Serial);
-      }
-    } else if (upload.status == UPLOAD_FILE_WRITE) {
-      /* flashing firmware to ESP*/
-      if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
-        Update.printError(Serial);
-      }
-    } else if (upload.status == UPLOAD_FILE_END) {
-      if (Update.end(true)) { //true to set the size to the current progress
-        Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
-      } else {
-        Update.printError(Serial);
-      }
-    }
-  });
-  server.begin();
+
+  // In ECU V2.3.3.2 the HSPI_CS pin is 13, in the V2.3.3.3 is 2
+  // if (strcmp(vehicleParam.ECUHardwareVersion, "2.3.3.2") == 0)
+  // {
+  //   pinHSPI_MOSI = 13; // HSPI_MOSI - MOSI for HSPI
+  // }
+  // else
+  // {
+  //   pinHSPI_MOSI = 2; // HSPI_MOSI - MOSI for HSPI
+  // }
+
+  // // Init SPI Buses now, because of the pins change
+  // HSPIBus.begin(pinHSPI_CLK, pinHSPI_MISO, pinHSPI_MOSI);
+  // VSPIBus.begin(pinVSPI_CLK, pinVSPI_MISO, pinVSPI_MOSI);
+
+  // // Starts the heartbeat ticker each 500ms
+  // tickHeartbeat.attach_ms(500, heartbeat);
+
+  // // If the motorcyle has transmission, it means that the RPM in the wheel is different from the RPM from the MCU
+  // if (vehicleParam.hasTransmission)
+  // {
+  //   // So it's necessary to get the RPM from a speed sensor conected to the wheel and analyzed by an interruption
+  //   attachInterrupt(digitalPinToInterrupt(pinSpeedSensor), ifSpeedSensorRose, RISING);
+
+  //   // But as when the bike stops, there is no interruption, something need to be running from time to time to make sure that the RPM will be 0 when it is stopped
+  //   // Each 500ms, verifies if the last pulse was more than 1 second ago, in this case put 0 as RPM
+  //   // IMPORTANT: It could be used something inside the interruption that happen when a pulse occur, but there it is necessary to be faster as possible, so better to keep outside
+  //   tickForceRPMTo0.attach_ms(500, forceRPMTo0);
+  // }
+
+  // Prepare the array of errors, already prepared to receive errors from E001 to E999
+  // It is also necessary to update the array of error messages in the format EXXX TEXT in the file func_Errors.h
+  // and change the constant that has the number of errors in the same file
+  // errorArray.begin(1000);
+  // errorArray.clear();
+
+  // // In the beggining of the task modeSelection there is a while waiting till receive at least one packet from the BMS and from the MCU, after that the variable "vehicleInfo.passedInitCheckup" is set
+  // // This is necessary because the mode changes according to the SOC. So if there is no data, the SOC will be 0, starting in ECO mode. And the variable "vehicleInfo.passedInitCheckup" can be used in other places as a "Good to go" flag
+  // // So to make sure that a packet will be received, the timeout errors from BMS and MCU start triggered
+  // // It will be clean when a packet is received, then the task modeSelector starts.
+  // errorArray.set(300, 1);
+  // errorArray.set(302, 1);
+
+  // // There are a lot of Serial.prinln commands used for debug all along the code
+  // // This array contains the flags to show the debug messages in each session
+  // serialDebugFlags.begin(32);
+  // serialDebugFlags.clear();
+  // serialDebugFlags.set(0, false); // Show display serial debug messages
+  // serialDebugFlags.set(1, false); // Show BMS serial debug messages
+
+  // /* #region AVGCALC Conf */
+  // avgBMSTemp.confAvgCalc(10, checkVarType(&dummyInt16), 20);       // Configurates avgBMSTemp object and starts the array with 20°C
+  // avgMotorTemp.confAvgCalc(10, checkVarType(&dummyInt16), 20);     // Configurates avgMotorTemp object and starts the array with 20°C
+  // avgMCUVoltage.confAvgCalc(200, checkVarType(&dummyUint16));      // Configurates avgMCUVoltage object and starts the array with 0
+  // avgMCUCurrentOut.confAvgCalc(20, checkVarType(&dummyUint8));     // Configurates avgMCUCurrentOut object and starts the array with 0
+  // avgECUSupplyVoltage.confAvgCalc(20, checkVarType(&dummyUint16)); // Configurates avgECUSupplyVoltage object and starts the array with 0
+  // avgEfficiency.confAvgCalc(20, checkVarType(&dummyInt16));        // Configurates avgEfficiency object and starts the array with 0
+  // /* #endregion */
+
+  // /* #region PWRREDUCTION Conf */
+  // pwrRedFetTemp.confPwrReductionCalc(50, 70, 70, 30, checkVarType(&dummyInt16), 20);     // Configurates pwrRedFetTemp object and starts the array with 20°C
+  // pwrRedBatTemp.confPwrReductionCalc(50, 65, 70, 30, checkVarType(&dummyInt16), 20);     // Configurates pwrRedBatTemp object and starts the array with 20°C
+  // pwrRedMotorTemp.confPwrReductionCalc(120, 135, 70, 30, checkVarType(&dummyInt16), 20); // Configurates pwrRedMotorTemp object and starts the array with 20°C
+  // /* #endregion */
+
+  // /* #region INIT_TASKS */
+  // // == TASKS IN CORE1 ========================================================
+  // task_BusI2C.runInCore1(taskCode_BusI2C, "BusI2C", 3000, 25, 0);
+  // task_UpdateIO.runInCore1(taskCode_UpdateIO, "UpdateIO", 1000, 25, 1);
+  // task_ModeSelector.runInCore1(taskCode_ModeSelector, "ModeSelector", 1000, 25, 2);
+
+  // // Just start the screen task if the screen is UART
+  // if (vehicleParam.screenType == 0) // 0 change 1
+  //   // task_ScreenUART.runInCore1(taskCode_ScreenUART, "ScreenUart", 3000, 50, 3);
+  //   task_ScreenUART.runInCore1(taskCode_ScreenUART, "ScreenUart", 3000, 50, 3);
+
+  // task_InertialSensor.runInCore1(taskCode_BusHSPI, "BusHSPI", 3000, 50, 4);
+
+  // == TASKS IN CORE0 ========================================================
+  //task_Errors.runInCore0(taskCode_Errors, "Errors", 1000, 10, 0);
+  task_BusCANExt.runInCore0(taskCode_BusCANExt, "BusCANExt", 3000, 10, 1);
+
+  // // Just start the BMS task if the BMS data is coming via UART
+  // // if (vehicleParam.BMSType == 1)
+  // // task_BusCANExt.runInCore0(taskCode_BusCANExt, "BusCANExt", 3000, 20, 2);
+  //   // task_BMSUART.runInCore0(taskCode_BMSUART, "BMS", 3000, 20, 2);
+
+  // task_Bluetooth.runInCore0(taskCode_Bluetooth, "Bluetooth", 3000, 500, 3);
+  // task_BLE.runInCore0(taskCode_BLE, "BLE", 1500, 1000, 4);
+  // /*#endregion */
 }
- 
-void loop(void) {
-  server.handleClient();
-  delay(1);
+
+void loop()
+{
+  // As the functions SerialEventX are not implemented for ESP32, this was is used to replace it
+  // Serial0 takes care about commucation with computer
+  // if (Serial.available())
+  // {
+  //   serialEvent();
+  // }
 }

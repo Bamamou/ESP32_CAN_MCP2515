@@ -1,10 +1,6 @@
 /******************************************************************************
  * class_CANRecv.h
  * Header for class_CANRecv.cpp
- * Created by NICOLAS in Beijin on the 13th August of 2023
- * CANRecv() is the function that continue reading the bit in each CAN byte
- * confToCanExt() is the funtion that set the CAN ID, the CAN function to be analyse and finaly the receiving time for the MCP2515
- * confToCanEmb() this is for embed CAN of the ESP32 (TJA1050)
  *****************************************************************************/
 #ifndef __CLASS_CANRECV_H__
 #define __CLASS_CANRECV_H__
