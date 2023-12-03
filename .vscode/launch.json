@@ -9,10 +9,29 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C/C++ Runner: Debug Session",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "externalConsole": true,
+            "cwd": "e:/Git/ESP32_CAN_MCP2515/src",
+            "program": "e:/Git/ESP32_CAN_MCP2515/src/build/Debug/outDebug",
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/Users/Administrator/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "e:/ESP Projects/OTA ESP32/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "executable": "e:/Git/ESP32_CAN_MCP2515/.pio/build/esp32doit-devkit-v1/firmware.elf",
             "projectEnvName": "esp32doit-devkit-v1",
             "toolchainBinDir": "C:/Users/Administrator/.platformio/packages/toolchain-xtensa-esp32/bin",
             "internalConsoleOptions": "openOnSessionStart",
@@ -25,7 +44,7 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "e:/ESP Projects/OTA ESP32/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "executable": "e:/Git/ESP32_CAN_MCP2515/.pio/build/esp32doit-devkit-v1/firmware.elf",
             "projectEnvName": "esp32doit-devkit-v1",
             "toolchainBinDir": "C:/Users/Administrator/.platformio/packages/toolchain-xtensa-esp32/bin",
             "internalConsoleOptions": "openOnSessionStart"
@@ -34,7 +53,7 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "e:/ESP Projects/OTA ESP32/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "executable": "e:/Git/ESP32_CAN_MCP2515/.pio/build/esp32doit-devkit-v1/firmware.elf",
             "projectEnvName": "esp32doit-devkit-v1",
             "toolchainBinDir": "C:/Users/Administrator/.platformio/packages/toolchain-xtensa-esp32/bin",
             "internalConsoleOptions": "openOnSessionStart",
