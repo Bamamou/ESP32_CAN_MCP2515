@@ -15,7 +15,7 @@ uint8_t pinHSPI_MOSI; // HSPI_MOSI - MOSI for HSPI
 // StructVehicleInfo vehicleInfo;   // Information from the vehicle
 // StructMCU MCUData;               // All data acquired from MCU
 // StructCharger chargerData;       // All data acquired from charger
-// StructBMS BMSData;               // All data acquired from BMS
+ StructBMS BMSData;               // All data acquired from BMS
 // StructTime timeNow;              // Updated time. Updated by the task BusI2C.
 // StructTime timeToUpdate;         // New time to be applied. Read by the task BusI2C.
 // InfoToSave infoToSave;           // Struct with all variables saved in the flash memory
@@ -69,7 +69,7 @@ double dummyDouble = 0;
 
 // Objects for average calculations
 // /* #region Average calculation objects */
-// Math avgBMSTemp;          // Used for displaying BMS temperature in the display without flickering
+   Math avgBMSTemp;          // Used for displaying BMS temperature in the display without flickering
 // Math avgMotorTemp;        // Used for displaying motor temperature in the display without flickering
 // Math avgMCUVoltage;       // Used to calculate the MCU voltage average within 20 seconds to calculate efficiency
 // Math avgMCUCurrentOut;    // Used to smooth the currentOut when the riding mode is descreased

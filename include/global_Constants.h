@@ -73,26 +73,28 @@ const uint32_t addrHMISend2 = 0x180423F5;
 const uint32_t addrHMISend3 = 0x180433F5;
 const uint32_t addrHMISend4 = 0x180443F5;
 
-// BMS IDs (Using the UART2CAN Converter)
-// AntBMS_CAN IDs
-const uint32_t addrBMSRecv1 = 0x18FF28F4;
-const uint32_t addrBMSRecv2 = 0x18FE28F4;
-const uint32_t addrBMSRecv3 = 0x18C828F4;
-const uint32_t addrBMSRecv4 = 0x18C928F4;
-const uint32_t addrBMSRecv5 = 0x18CA28F4;
-const uint32_t addrBMSRecv6 = 0x18CB28F4;
-const uint32_t addrBMSRecv7 = 0x18CC28F4;
-const uint32_t addrBMSRecv8 = 0x18CD28F4;
-const uint32_t addrBMSRecv9 = 0x18CE28F4;
-const uint32_t addrBMSRecv10 = 0x18B428F4;
-const uint32_t addrBMSRecv11 = 0x1806E5F4;
-// The below packets are not used for the time being
-const uint32_t addrBMSRecv12 = 0x16810112;
-const uint32_t addrBMSRecv13 = 0x16810113;
-const uint32_t addrBMSRecv14 = 0x16810114;
-const uint32_t addrBMSRecv15 = 0x16810115;
-const uint32_t addrBMSRecv16 = 0x16810116;
-const uint32_t addrBMSRecv17 = 0x16810117;
+
+// BMS IDs (SmartBMS)
+
+const uint32_t addrSmartBMSRecv1 = 0X01; 
+const uint32_t addrSmartBMSRecv2 = 0X02;
+const uint32_t addrSmartBMSRecv3 = 0X03;
+const uint32_t addrSmartBMSRecv4 = 0X04;
+const uint32_t addrSmartBMSRecv5 = 0X05;
+const uint32_t addrSmartBMSRecv6 = 0X06;
+const uint32_t addrSmartBMSRecv7 = 0X07;
+const uint32_t addrSmartBMSRecv8 = 0X08;
+const uint32_t addrSmartBMSRecv9 = 0x02088100;
+const uint32_t addrSmartBMSRecv10 = 0x02108200;
+const uint32_t addrSmartBMSRecv11 = 0x02118200;
+const uint32_t addrSmartBMSRecv12 = 0x02108100;
+const uint32_t addrSmartBMSRecv13 = 0x02118100;
+const uint32_t addrSmartBMSRecv14 = 0x02128100;
+const uint32_t addrSmartBMSRecv15 = 0x02138100;
+const uint32_t addrSmartBMSRecv16 = 0x02148100;   
+const uint32_t addrSmartBMSRecv17 = 0x02158100;
+const uint32_t addrSmartBMSRecv18 = 0x02168100;
+const uint32_t addrSmartBMSSend = 0x1806AAE5;
 
 // Identification of each byte of the CAN packet sent to the motor controller
 // Byte 0 and 5 are reserved

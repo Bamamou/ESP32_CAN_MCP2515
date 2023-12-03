@@ -11,6 +11,7 @@
 #include "global_Constants.h"
 #include "global_Variables.h"
 #include "DHT.h"
+#include "SH367309_BMS.h"
 // #include "func_MCU.h"
 // #include "func_Charger.h"
 // #include "func_HMI.h"

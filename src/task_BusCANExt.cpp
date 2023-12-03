@@ -31,23 +31,23 @@ void taskCode_BusCANExt(void *pvParameters)
     // If the BMS data is coming via CAN
     if (p_ECUHardwareVersion == 1)
     {
-        // BMSRecv1.confToCanExt(addrBMSRecv1, BMSPack1Analysis, 3000);
-        // BMSRecv2.confToCanExt(addrBMSRecv2, BMSPack2Analysis, 3000);
-        // BMSRecv3.confToCanExt(addrBMSRecv3, BMSPack3Analysis, 3000);
-        // BMSRecv4.confToCanExt(addrBMSRecv4, BMSPack4Analysis, 3000);
-        // BMSRecv5.confToCanExt(addrBMSRecv5, BMSPack5Analysis, 3000);
-        // BMSRecv6.confToCanExt(addrBMSRecv6, BMSPack6Analysis, 3000);
-        // BMSRecv7.confToCanExt(addrBMSRecv7, BMSPack7Analysis, 3000);
-        // BMSRecv8.confToCanExt(addrBMSRecv8, BMSPack8Analysis, 3000);
-        // BMSRecv9.confToCanExt(addrBMSRecv9, BMSPack9Analysis, 3000);
-        // BMSRecv10.confToCanExt(addrBMSRecv10, BMSPack10Analysis, 3000);
-        // BMSRecv11.confToCanExt(addrBMSRecv11, BMSPack11Analysis, 3000);
-        // BMSRecv12.confToCanExt(addrBMSRecv12, BMSPack12Analysis, 3000);
-        // BMSRecv13.confToCanExt(addrBMSRecv13, BMSPack13Analysis, 3000);
-        // BMSRecv14.confToCanExt(addrBMSRecv14, BMSPack14Analysis, 3000);
-        // BMSRecv15.confToCanExt(addrBMSRecv15, BMSPack15Analysis, 3000);
-        // BMSRecv16.confToCanExt(addrBMSRecv16, BMSPack16Analysis, 3000);
-        // BMSRecv17.confToCanExt(addrBMSRecv17, BMSPack17Analysis, 3000);
+        BMSRecv1.confToCanExt(addrSmartBMSRecv1, SmartBMSPack1Analysis, 3000);
+        BMSRecv2.confToCanExt(addrSmartBMSRecv2, SmartBMSPack2Analysis, 3000);
+        BMSRecv3.confToCanExt(addrSmartBMSRecv3, SmartBMSPack3Analysis, 3000);
+        BMSRecv4.confToCanExt(addrSmartBMSRecv4, SmartBMSPack4Analysis, 3000);
+        BMSRecv5.confToCanExt(addrSmartBMSRecv5, SmartBMSPack5Analysis, 3000);
+        BMSRecv6.confToCanExt(addrSmartBMSRecv6, SmartBMSPack6Analysis, 3000);
+        BMSRecv7.confToCanExt(addrSmartBMSRecv7, SmartBMSPack7Analysis, 3000);
+        BMSRecv8.confToCanExt(addrSmartBMSRecv8, SmartBMSPack8Analysis, 3000);
+        BMSRecv9.confToCanExt(addrSmartBMSRecv9, SmartBMSPack9Analysis, 3000);
+        BMSRecv10.confToCanExt(addrSmartBMSRecv10, SmartBMSPack10Analysis, 3000);
+        BMSRecv11.confToCanExt(addrSmartBMSRecv11, SmartBMSPack11Analysis, 3000);
+        BMSRecv12.confToCanExt(addrSmartBMSRecv12, SmartBMSPack12Analysis, 3000);
+        BMSRecv13.confToCanExt(addrSmartBMSRecv13, SmartBMSPack13Analysis, 3000);
+        BMSRecv14.confToCanExt(addrSmartBMSRecv14, SmartBMSPack14Analysis, 3000);
+        BMSRecv15.confToCanExt(addrSmartBMSRecv15, SmartBMSPack15Analysis, 3000);
+        BMSRecv16.confToCanExt(addrSmartBMSRecv16, SmartBMSPack16Analysis, 3000);
+        BMSRecv17.confToCanExt(addrSmartBMSRecv17, SmartBMSPack17Analysis, 3000);
     }
 
     // Configure the CANSend objects
@@ -81,40 +81,40 @@ void taskCode_BusCANExt(void *pvParameters)
             // wzh20230516
 
             // The function checkNAnalyze return true if the ID matches, so if the return is true the function continue jumps all other parts to get next packet
-            // if (BMSRecv1.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv2.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv3.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv4.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv5.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv6.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv7.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv8.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv9.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv10.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv11.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv12.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv13.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv14.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv15.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv16.checkNAnalyze())
-            //     continue;
-            // if (BMSRecv17.checkNAnalyze())
-            //     continue;
+            if (BMSRecv1.checkNAnalyze())
+                continue;
+            if (BMSRecv2.checkNAnalyze())
+                continue;
+            if (BMSRecv3.checkNAnalyze())
+                continue;
+            if (BMSRecv4.checkNAnalyze())
+                continue;
+            if (BMSRecv5.checkNAnalyze())
+                continue;
+            if (BMSRecv6.checkNAnalyze())
+                continue;
+            if (BMSRecv7.checkNAnalyze())
+                continue;
+            if (BMSRecv8.checkNAnalyze())
+                continue;
+            if (BMSRecv9.checkNAnalyze())
+                continue;
+            if (BMSRecv10.checkNAnalyze())
+                continue;
+            if (BMSRecv11.checkNAnalyze())
+                continue;
+            if (BMSRecv12.checkNAnalyze())
+                continue;
+            if (BMSRecv13.checkNAnalyze())
+                continue;
+            if (BMSRecv14.checkNAnalyze())
+                continue;
+            if (BMSRecv15.checkNAnalyze())
+                continue;
+            if (BMSRecv16.checkNAnalyze())
+                continue;
+            if (BMSRecv17.checkNAnalyze())
+                continue;
             // if (chargerRecv.checkNAnalyze())
             //     continue;
             // if (MCUAPTRecv1.checkNAnalyze())

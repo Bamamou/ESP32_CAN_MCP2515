@@ -15,10 +15,10 @@
 #include <Ticker.h>
 
 #include "global_Constants.h"
-//#include "global_Structures.h"
+#include "global_Structures.h"
  #include "class_CANRecv.h"
  #include "class_CANSend.h"
-// #include "class_Math.h"
+ #include "class_Math.h"
 // #include "class_ParamFRAM.h"
 #include "class_TaskManager.h"
 
@@ -38,7 +38,7 @@ extern uint8_t pinHSPI_MOSI; // HSPI_MOSI - MOSI for HSPI
 // extern StructVehicleInfo vehicleInfo;   // Information from the vehicle
 // extern StructMCU MCUData;               // All data acquired from MCU
 // extern StructCharger chargerData;       // All data acquired from charger
-// extern StructBMS BMSData;               // All data acquired from BMS
+ extern StructBMS BMSData;               // All data acquired from BMS
 // extern StructTime timeNow;              // Updated time. Updated by the task UpdateTime.
 // extern StructTime timeToUpdate;         // New time to be applied. Read by the task UpdateTime.
 // extern InfoToSave infoToSave;           // Struct with all variables saved in the flash memory
