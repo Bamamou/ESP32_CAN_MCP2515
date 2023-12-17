@@ -33,6 +33,7 @@ class ParamFRAM;
 extern gpio_num_t pinTXCAN2; // CAN2_TXD - TX from embedded CAN Controller
 extern gpio_num_t pinRXCAN2; // CAN2_RXD - RX from embedded CAN Controller
 extern uint8_t pinHSPI_MOSI; // HSPI_MOSI - MOSI for HSPI
+const uint8_t ledPin = BUILTIN_LED;        //  The BuiltIN_LED pin 
 
 // extern StructVehicleParam vehicleParam; // Parameters for the vehicle
 // extern StructVehicleInfo vehicleInfo;   // Information from the vehicle
@@ -122,6 +123,7 @@ extern TaskManager task_ModeSelector;
 extern TaskManager task_BMSUART;
 extern TaskManager task_ScreenUART;
 extern TaskManager task_UpdateIO;
+extern TaskManager task_Web;
 /* #endregion */
 
 /*#region CAN*/

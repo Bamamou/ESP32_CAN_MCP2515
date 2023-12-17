@@ -99,6 +99,7 @@ TaskManager task_ModeSelector;
 TaskManager task_BMSUART;
 TaskManager task_ScreenUART;
 TaskManager task_UpdateIO;
+TaskManager task_Web;
 /* #endregion */
 
 /*#region CAN*/

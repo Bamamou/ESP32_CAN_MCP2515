@@ -9,7 +9,7 @@
 void taskCode_BusCANExt(void *pvParameters)
 {
     // Init CAN connection
-    ACAN2515Settings settings(8 * 1000UL * 1000UL, 250UL * 1000UL); // CAN bit rate 250 kb/s
+    ACAN2515Settings settings(8 * 1000UL * 1000UL, 500UL * 1000UL); // CAN bit rate 250 kb/s
 
     uint16_t errorCode = CANExt.begin(settings, NULL);
     if (0 == errorCode)

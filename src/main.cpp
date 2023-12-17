@@ -13,6 +13,10 @@ void setup()
   pinMode(pinHSPI_CS_Acc, OUTPUT);
   pinMode(pinHSPI_CS_Flash, OUTPUT);
   pinMode(pinVSPI_CS_Can, OUTPUT);
+  pinMode(ledPin,OUTPUT);
+  // pinMode(DATA_PIN, OUTPUT);
+  // pinMode(CLOCK_PIN, OUTPUT);
+  // pinMode(LATCH_PIN, OUTPUT);
 
   // // Keep FRAM protected against Writing
   // digitalWrite(pinWP_FRAM, HIGH);
@@ -23,6 +27,8 @@ void setup()
   // Init serial ports (The serial ports for display and BMS are started in their task files)
   // As seen in https://github.com/G6EJD/ESP32-Using-Hardware-Serial-Ports/blob/master/ESP32_Using_Serial2.ino
   Serial.begin(115200);
+  // clearRegisters();
+  // writeRegisters();
 
   // // Init I2C Bus
   // I2C0.begin(pinSDA, pinSCL, 400000);
@@ -132,6 +138,8 @@ void setup()
   // == TASKS IN CORE0 ========================================================
   //task_Errors.runInCore0(taskCode_Errors, "Errors", 1000, 10, 0);
   task_BusCANExt.runInCore0(taskCode_BusCANExt, "BusCANExt", 3000, 10, 1);
+  task_Web.runInCore1(taskCode_Web, "Web", 3000, 1, 2);
+  task_Bluetooth.runInCore0(taskCode_Bluetooth, "Bluetooth", 3000, 500, 3);
 
   // // Just start the BMS task if the BMS data is coming via UART
   // // if (vehicleParam.BMSType == 1)
