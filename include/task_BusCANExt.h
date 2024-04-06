@@ -14,7 +14,7 @@
 #include "SH367309_BMS.h"
 // #include "func_MCU.h"
 // #include "func_Charger.h"
-// #include "func_HMI.h"
+ #include "func_HMI.h"
 
 // Code for the task CANBus
 void taskCode_BusCANExt(void *pvParameters);

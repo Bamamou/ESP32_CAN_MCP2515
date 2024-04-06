@@ -28,14 +28,14 @@ const uint8_t pin12VMonitor = 34;  // 12VMonitor - Used to measure the 12V Batte
 const uint8_t pinTXD = 1; // TXD - TX from standard serial port
 const uint8_t pinRXD = 3; // RXD - RX from standard serial port
 
-const uint8_t pinTXD1 = 4;  // TXD1 - TX from serial port 1
+const uint8_t pinTXD1 = 4;  // TXD1 - TX from serial port 1 for DHT11
 const uint8_t pinRXD1 = 36; // RXD1 (Sensor VP) - RX from serial port 1
 
 const uint8_t pinTXD2 = 17; // TXD1 - TX from serial port 2
 const uint8_t pinRXD2 = 16; // RXD2 - RX from serial port 2
 
 // Pins related to HSPI
-const uint8_t pinHSPI_CS_Acc = 5;    // HSPI_CS1 - Chip select 1 for HSPI (ACCELEROMETER)
+const uint8_t pinHSPI_CS_Acc = 25;    // HSPI_CS1 - Chip select 1 for HSPI (ACCELEROMETER)
 const uint8_t pinHSPI_CS_Flash = 26; // HSPI_CS2 - Chip select 2 for HSPI (FLASH MEMORY)
 // The HSPI_MOSI changes between boards, so it is a variable. The value is set in the main file, after reading the parameters
 const uint8_t pinHSPI_MISO = 12; // HSPI_MISO - MISO for HSPI
@@ -43,7 +43,7 @@ const uint8_t pinHSPI_CLK = 14;  // HSPI_CLK - Clock for HSPI
 const uint8_t pinINT_Acc = 39;   // MPU9250_INT (Sensor VN) - Interruption from the Accelerometer
 
 // Pins related to VSPI
-const int8_t pinVSPI_CS_Can = 25; // VSPI_CS1 - Chip select 1 for VSPI (CAN CONTROLLER)
+const int8_t pinVSPI_CS_Can = 5; // VSPI_CS1 - Chip select 1 for VSPI (CAN CONTROLLER)
 const int8_t pinVSPI_MOSI = 23;   // VSPI_MOSI - MOSI for VSPI
 const int8_t pinVSPI_MISO = 19;   // VSPI_MISO - MISO for VSPI
 const int8_t pinVSPI_CLK = 18;    // VSPI_CLK - Clock for VSPI

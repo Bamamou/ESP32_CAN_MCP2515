@@ -55,7 +55,7 @@ void taskCode_BusCANExt(void *pvParameters)
     // chargerSend.confToCanExt(addrChargerSend, prepareCANChargerOut, 1000);
 
     // //  Adjust times interval for HMI packets
-    // HMISend1.confToCanExt(addrHMISend1, prepareCANHMI1Out, 25);
+     HMISend1.confToCanExt(addrHMISend1, prepareCANHMI1Out, 100);
     // HMISend2.confToCanExt(addrHMISend2, prepareCANHMI2Out, 25);
     // HMISend3.confToCanExt(addrHMISend3, prepareCANHMI3Out, 25);
     // HMISend4.confToCanExt(addrHMISend4, prepareCANHMI4Out, 25);

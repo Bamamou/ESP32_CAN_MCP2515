@@ -70,7 +70,7 @@ void setup()
 
   // // Init SPI Buses now, because of the pins change
   // HSPIBus.begin(pinHSPI_CLK, pinHSPI_MISO, pinHSPI_MOSI);
-     VSPIBus.begin(pinVSPI_CLK, pinVSPI_MISO, pinVSPI_MOSI);
+  VSPIBus.begin(pinVSPI_CLK, pinVSPI_MISO, pinVSPI_MOSI);
 
   // // Starts the heartbeat ticker each 500ms
   // tickHeartbeat.attach_ms(500, heartbeat);
